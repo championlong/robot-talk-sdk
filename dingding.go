@@ -23,7 +23,7 @@ func Init(config config.DingdingConfig) {
 
 // SendDingMessage 发送钉钉消息
 func SendDingMessage(kindRobot string, messageType MsgType, message interface{}, at model.At) error {
-	job := new(DingMasterJob)
+	job := &DingMasterJob{}
 	job.KindRobot = kindRobot
 	job.Url = dingUrl
 	job.Msgtype = messageType
