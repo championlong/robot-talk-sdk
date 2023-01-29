@@ -8,17 +8,80 @@ import (
 	"github.com/championlong/dingtalk-sdk/model"
 )
 
-func TestSend(t *testing.T) {
+func initDingConfig() {
 	query := make(map[string]config.DingdingQueryConfig)
-	query["rebort"] = config.DingdingQueryConfig{
-		Encrypt:     "SEC28c01255689eed0515a1a2032daafe372b3c86667428bc8a2035f9ef3d0174fc",
-		AccessToken: "8092dbdace9b4fc2ef20fc0b29c2031d7174a6ef7a036941005625d1b80a0062",
+	query["report"] = config.DingdingQueryConfig{
+		Encrypt:     "",
+		AccessToken: "",
 	}
-	dingConfig = &config.DingdingConfig{
+	Init(config.DingdingConfig{
 		DingdingQuery: query,
-	}
-	err := SendDingMessage("rebort", MsgTypeText, model.TextMessage{
+	})
+}
+
+func TestSendText(t *testing.T) {
+	initDingConfig()
+	err := SendDingMessage("report", MsgTypeText, model.TextMessage{
 		Content: "text",
+	}, model.At{})
+	fmt.Println(err)
+}
+
+func TestSendMarkdown(t *testing.T) {
+	initDingConfig()
+	err := SendDingMessage("report", MsgTypeMarkdown, model.MarkdownMessage{
+		Title: "测试",
+		Text:  "# 测试",
+	}, model.At{})
+	fmt.Println(err)
+}
+
+func TestSendLink(t *testing.T) {
+	initDingConfig()
+	err := SendDingMessage("report", MsgTypeLink, model.LinkMessage{
+		Title:      "测试",
+		Text:       "测试文本",
+		PicURL:     "",
+		MessageURL: "https://open.dingtalk.com/document/group/custom-robot-access",
+	}, model.At{})
+	fmt.Println(err)
+}
+
+func TestSendFeedCard(t *testing.T) {
+	initDingConfig()
+	err := SendDingMessage("report", MsgTypeFeedCard, model.FeedCardMessage{
+		Links: []model.Links{
+			{
+				Title:      "测试1",
+				PicURL:     "",
+				MessageURL: "https://open.dingtalk.com/document/group/custom-robot-access",
+			},
+			{
+				Title:      "测试2",
+				PicURL:     "",
+				MessageURL: "https://open.dingtalk.com/document/group/custom-robot-access",
+			},
+		},
+	}, model.At{})
+	fmt.Println(err)
+}
+
+func TestSendActionCard(t *testing.T) {
+	initDingConfig()
+	err := SendDingMessage("report", MsgTypeActionCard, model.ActionCardMessage{
+		Title:          "测试",
+		Text:           "测试消息",
+		BtnOrientation: model.Vertical,
+		Btns: []model.ActionCardBtn{
+			{
+				Title:     "确认",
+				ActionURL: "https://www.dingtalk.com/",
+			},
+			{
+				Title:     "取消",
+				ActionURL: "https://www.dingtalk.com/",
+			},
+		},
 	}, model.At{})
 	fmt.Println(err)
 }
