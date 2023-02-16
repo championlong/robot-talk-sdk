@@ -5,10 +5,6 @@ import (
 	"github.com/championlong/dingtalk-sdk/model"
 )
 
-const (
-	dingUrl = "https://oapi.dingtalk.com/robot/send"
-)
-
 var dingConfig *config.DingdingConfig
 
 // GetConfig 获取钉钉配置文件
@@ -17,7 +13,7 @@ func GetConfig() *config.DingdingConfig {
 }
 
 // Init 初始化钉钉配置
-func Init(config config.DingdingConfig) {
+func InitDingTalk(config config.DingdingConfig) {
 	dingConfig = &config
 }
 
