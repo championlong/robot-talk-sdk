@@ -14,7 +14,7 @@ func initDingConfig() {
 		Encrypt:     "",
 		AccessToken: "",
 	}
-	Init(config.DingdingConfig{
+	InitDingTalk(config.DingdingConfig{
 		DingdingQuery: query,
 	})
 }
