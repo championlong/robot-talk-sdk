@@ -27,6 +27,10 @@ const (
 	MsgTypeFeedCard   MsgType = "feedCard"
 )
 
+type SendMessage interface {
+	SendMessage(message interface{}) error
+}
+
 type DingMasterJob struct {
 	Url        string                     `json:"-"`       //请求url
 	KindRobot  string                     `json:"-"`       //机器人种类
@@ -40,7 +44,7 @@ type DingMasterJob struct {
 	Query      config.DingdingQueryConfig `json:"-"`
 }
 
-func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingdingQueryConfig, at model.At) *DingMasterJob {
+func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingdingQueryConfig, at model.At) SendMessage {
 	return &DingMasterJob{
 		Url:       "https://oapi.dingtalk.com/robot/send",
 		KindRobot: kindRobot,
@@ -48,10 +52,6 @@ func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingdingQu
 		At:        at,
 		Query:     query,
 	}
-}
-
-type SendMessage interface {
-	SendMessage(message interface{}) error
 }
 
 // SendMessage 发送消息
