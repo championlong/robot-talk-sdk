@@ -40,10 +40,13 @@ type DingMasterJob struct {
 	Query      config.DingdingQueryConfig `json:"-"`
 }
 
-func NewDingMasterJob(KindRobot string,messageType MsgType, query config.DingdingQueryConfig,at model.At) *DingMasterJob {
+func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingdingQueryConfig, at model.At) *DingMasterJob {
 	return &DingMasterJob{
-		Url: "https://oapi.dingtalk.com/robot/send",
-
+		Url:       "https://oapi.dingtalk.com/robot/send",
+		KindRobot: kindRobot,
+		Msgtype:   msgtype,
+		At:        at,
+		Query:     query,
 	}
 }
 
