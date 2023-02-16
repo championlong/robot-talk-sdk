@@ -12,7 +12,7 @@ func GetConfig() *config.DingdingConfig {
 	return dingConfig
 }
 
-// Init 初始化钉钉配置
+// InitDingTalk 初始化钉钉配置
 func InitDingTalk(config config.DingdingConfig) {
 	dingConfig = &config
 }
