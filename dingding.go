@@ -23,11 +23,5 @@ func Init(config config.DingdingConfig) {
 
 // SendDingMessage 发送钉钉消息
 func SendDingMessage(kindRobot string, messageType MsgType, message interface{}, at model.At) error {
-	job := &DingMasterJob{}
-	job.KindRobot = kindRobot
-	job.Url = dingUrl
-	job.Msgtype = messageType
-	job.Query = dingConfig.DingdingQuery[kindRobot]
-	job.At = at
-	return job.SendMessage(message)
+	return NewDingMasterJob(kindRobot, messageType, dingConfig.DingdingQuery[kindRobot], at).SendMessage(message)
 }
