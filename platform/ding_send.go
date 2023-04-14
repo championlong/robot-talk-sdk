@@ -20,12 +20,20 @@ var dingClient = utils.NewHttpClient()
 type MsgType string
 
 const (
+	dingUrl = "https://oapi.dingtalk.com/robot/send"
+)
+
+const (
 	MsgTypeText       MsgType = "text"
 	MsgTypeMarkdown   MsgType = "markdown"
 	MsgTypeLink       MsgType = "link"
 	MsgTypeActionCard MsgType = "actionCard"
 	MsgTypeFeedCard   MsgType = "feedCard"
 )
+
+type SendMessage interface {
+	SendMessage(message interface{}) error
+}
 
 type DingMasterJob struct {
 	Url        string                       `json:"-"`       //请求url
@@ -40,8 +48,14 @@ type DingMasterJob struct {
 	Query      config.DingRobotsConfig      `json:"-"`
 }
 
-type SendMessage interface {
-	SendMessage(message interface{}) error
+func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingRobotsConfig, at ding_talk.At) SendMessage {
+	return &DingMasterJob{
+		Url:       dingUrl,
+		KindRobot: kindRobot,
+		Msgtype:   msgtype,
+		At:        at,
+		Query:     query,
+	}
 }
 
 // SendMessage 发送消息

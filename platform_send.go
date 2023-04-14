@@ -6,10 +6,6 @@ import (
 	"github.com/championlong/dingtalk-sdk/platform"
 )
 
-const (
-	dingUrl = "https://oapi.dingtalk.com/robot/send"
-)
-
 var platformConfig *config.PlatformConfig
 
 // GetConfig 获取钉钉配置文件
@@ -24,20 +20,14 @@ func Init(config config.PlatformConfig) {
 
 // SendDingMessage 发送钉钉消息
 func SendDingMessage(kindRobot string, messageType platform.MsgType, message interface{}, at ding_talk.At) error {
-	job := &platform.DingMasterJob{}
-	job.KindRobot = kindRobot
-	job.Url = dingUrl
-	job.Msgtype = messageType
-	job.Query = platformConfig.DingRobots[kindRobot]
-	job.At = at
-	return job.SendMessage(message)
+	return platform.NewDingMasterJob(kindRobot, messageType, platformConfig.DingRobots[kindRobot], at).SendMessage(message)
 }
 
 // SendFeishuMessage 发送飞书消息
 func SendFeishuMessage(kindRobot string, messageType platform.MsgType, message interface{}, at ding_talk.At) error {
 	job := &platform.DingMasterJob{}
 	job.KindRobot = kindRobot
-	job.Url = dingUrl
+	job.Url = ""
 	job.Msgtype = messageType
 	job.Query = platformConfig.DingRobots[kindRobot]
 	job.At = at
