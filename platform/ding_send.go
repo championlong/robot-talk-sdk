@@ -1,4 +1,4 @@
-package dingding
+package platform
 
 import (
 	"crypto/hmac"
@@ -6,12 +6,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/championlong/dingtalk-sdk/model/ding_talk"
 	"net/url"
 	"strconv"
 	"time"
 
 	"github.com/championlong/dingtalk-sdk/config"
-	"github.com/championlong/dingtalk-sdk/model"
 	"github.com/championlong/dingtalk-sdk/utils"
 )
 
@@ -28,16 +28,16 @@ const (
 )
 
 type DingMasterJob struct {
-	Url        string                     `json:"-"`       //请求url
-	KindRobot  string                     `json:"-"`       //机器人种类
-	Msgtype    MsgType                    `json:"msgtype"` //发送类型
-	Text       *model.TextMessage         `json:"text,omitempty"`
-	Markdown   *model.MarkdownMessage     `json:"markdown,omitempty"`
-	Link       *model.LinkMessage         `json:"link,omitempty"`
-	ActionCard *model.ActionCardMessage   `json:"actionCard,omitempty"`
-	FeedCard   *model.FeedCardMessage     `json:"feedCard,omitempty"`
-	At         model.At                   `json:"at,omitempty"`
-	Query      config.DingdingQueryConfig `json:"-"`
+	Url        string                       `json:"-"`       //请求url
+	KindRobot  string                       `json:"-"`       //机器人种类
+	Msgtype    MsgType                      `json:"msgtype"` //发送类型
+	Text       *ding_talk.TextMessage       `json:"text,omitempty"`
+	Markdown   *ding_talk.MarkdownMessage   `json:"markdown,omitempty"`
+	Link       *ding_talk.LinkMessage       `json:"link,omitempty"`
+	ActionCard *ding_talk.ActionCardMessage `json:"actionCard,omitempty"`
+	FeedCard   *ding_talk.FeedCardMessage   `json:"feedCard,omitempty"`
+	At         ding_talk.At                 `json:"at,omitempty"`
+	Query      config.DingRobotsConfig      `json:"-"`
 }
 
 type SendMessage interface {
@@ -48,23 +48,23 @@ type SendMessage interface {
 func (job *DingMasterJob) SendMessage(message interface{}) error {
 	switch job.Msgtype {
 	case MsgTypeText:
-		if value, ok := message.(model.TextMessage); ok {
+		if value, ok := message.(ding_talk.TextMessage); ok {
 			job.Text = &value
 		}
 	case MsgTypeMarkdown:
-		if value, ok := message.(model.MarkdownMessage); ok {
+		if value, ok := message.(ding_talk.MarkdownMessage); ok {
 			job.Markdown = &value
 		}
 	case MsgTypeLink:
-		if value, ok := message.(model.LinkMessage); ok {
+		if value, ok := message.(ding_talk.LinkMessage); ok {
 			job.Link = &value
 		}
 	case MsgTypeActionCard:
-		if value, ok := message.(model.ActionCardMessage); ok {
+		if value, ok := message.(ding_talk.ActionCardMessage); ok {
 			job.ActionCard = &value
 		}
 	case MsgTypeFeedCard:
-		if value, ok := message.(model.FeedCardMessage); ok {
+		if value, ok := message.(ding_talk.FeedCardMessage); ok {
 			job.FeedCard = &value
 		}
 	}
@@ -95,7 +95,7 @@ func (job *DingMasterJob) PostDingWebHookMsg() error {
 		return fmt.Errorf("error while %s. err: %s", ctx, err.Error())
 	}
 
-	var data = new(model.DingDingResponse)
+	var data = new(ding_talk.DingDingResponse)
 	err = json.Unmarshal(resBody, data)
 	if err != nil {
 		return fmt.Errorf("error while unmarshal %s. err: %s", ctx, err.Error())

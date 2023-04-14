@@ -1,4 +1,4 @@
-package model
+package ding_talk
 
 type FeedCardMessage struct {
 	Links []Links `json:"links"`
@@ -9,4 +9,3 @@ type Links struct {
 	MessageURL string `json:"messageURL"` //点击单条信息到跳转链接
 	PicURL     string `json:"picURL"`     //单条信息后面图片的URL
 }
-
