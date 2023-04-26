@@ -1,7 +1,7 @@
 package platform
 
 import (
-	"github.com/championlong/dingtalk-sdk/config"
+	"github.com/championlong/robot-talk-sdk/config"
 )
 
 type FeishuMasterJob struct {

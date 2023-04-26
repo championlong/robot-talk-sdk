@@ -2,11 +2,11 @@ package dingding
 
 import (
 	"fmt"
-	"github.com/championlong/dingtalk-sdk/model/ding_talk"
-	"github.com/championlong/dingtalk-sdk/platform"
+	"github.com/championlong/robot-talk-sdk/model/ding_talk"
+	"github.com/championlong/robot-talk-sdk/platform"
 	"testing"
 
-	"github.com/championlong/dingtalk-sdk/config"
+	"github.com/championlong/robot-talk-sdk/config"
 )
 
 func initDingConfig() {

@@ -1,4 +1,4 @@
-module github.com/championlong/dingtalk-sdk
+module github.com/championlong/robot-talk-sdk
 
 go 1.17
 
