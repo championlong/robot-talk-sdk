@@ -15,6 +15,10 @@ import (
 	"github.com/championlong/dingtalk-sdk/utils"
 )
 
+type SendMessage interface {
+	SendMessage(message interface{}) error
+}
+
 var dingClient = utils.NewHttpClient()
 
 type MsgType string
@@ -31,10 +35,6 @@ const (
 	MsgTypeFeedCard   MsgType = "feedCard"
 )
 
-type SendMessage interface {
-	SendMessage(message interface{}) error
-}
-
 type DingMasterJob struct {
 	Url        string                       `json:"-"`       //请求url
 	KindRobot  string                       `json:"-"`       //机器人种类
@@ -48,13 +48,13 @@ type DingMasterJob struct {
 	Query      config.DingRobotsConfig      `json:"-"`
 }
 
-func NewDingMasterJob(kindRobot string, msgtype MsgType, query config.DingRobotsConfig, at ding_talk.At) SendMessage {
+func NewDingMasterJob(kindRobot string, msgtype MsgType, at ding_talk.At) SendMessage {
 	return &DingMasterJob{
 		Url:       dingUrl,
 		KindRobot: kindRobot,
 		Msgtype:   msgtype,
 		At:        at,
-		Query:     query,
+		Query:     config.PlatformConfigGlobal.DingRobots[kindRobot],
 	}
 }
 

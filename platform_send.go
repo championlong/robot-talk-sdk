@@ -6,30 +6,27 @@ import (
 	"github.com/championlong/dingtalk-sdk/platform"
 )
 
-var platformConfig *config.PlatformConfig
-
-// GetConfig 获取钉钉配置文件
+// GetConfig 获取平台机器人配置文件
 func GetConfig() *config.PlatformConfig {
-	return platformConfig
+	return config.PlatformConfigGlobal
 }
 
-// Init 初始化钉钉配置
-func Init(config config.PlatformConfig) {
-	platformConfig = &config
+// Init 初始化平台机器人配置文件
+func Init(global config.PlatformConfig) {
+	config.PlatformConfigGlobal = &global
 }
 
 // SendDingMessage 发送钉钉消息
 func SendDingMessage(kindRobot string, messageType platform.MsgType, message interface{}, at ding_talk.At) error {
-	return platform.NewDingMasterJob(kindRobot, messageType, platformConfig.DingRobots[kindRobot], at).SendMessage(message)
+	return platform.NewDingMasterJob(kindRobot, messageType, at).SendMessage(message)
 }
 
 // SendFeishuMessage 发送飞书消息
-func SendFeishuMessage(kindRobot string, messageType platform.MsgType, message interface{}, at ding_talk.At) error {
-	job := &platform.DingMasterJob{}
-	job.KindRobot = kindRobot
-	job.Url = ""
-	job.Msgtype = messageType
-	job.Query = platformConfig.DingRobots[kindRobot]
-	job.At = at
-	return job.SendMessage(message)
+func SendFeishuMessage(message interface{}) error {
+	return platform.NewFeishuMasterJob().SendMessage(message)
+}
+
+// SendRobotMessage 自己初始化选择平台发送
+func SendRobotMessage(send platform.SendMessage, message interface{}) error {
+	return send.SendMessage(message)
 }

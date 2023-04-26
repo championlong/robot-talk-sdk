@@ -1,9 +1,12 @@
 package config
 
+var PlatformConfigGlobal *PlatformConfig
+
 // PlatformConfig 平台机器人发送配置
 type PlatformConfig struct {
-	// DingRobots 机器人列表 key机器人名称
-	DingRobots   map[string]DingRobotsConfig   `mapstructure:"ding_talk-platform" json:"ding_talk-platform" yaml:"ding_talk-platform"`
+	// DingRobots 钉钉机器人列表
+	DingRobots map[string]DingRobotsConfig `mapstructure:"ding-platform" json:"ding-platform" yaml:"ding-platform"`
+	// FeishuRobots 飞书机器人列表
 	FeishuRobots map[string]FeishuRobotsConfig `mapstructure:"feishu-platform" json:"feishu-platform" yaml:"feishu-platform"`
 }
 
