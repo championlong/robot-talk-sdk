@@ -1,4 +1,4 @@
-package model
+package ding_talk
 
 type MarkdownMessage struct {
 	Title string `json:"title"` //首屏会话透出的展示内容

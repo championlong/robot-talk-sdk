@@ -1,4 +1,4 @@
-package model
+package ding_talk
 
 type AcitonCardBtnOrientation string
 

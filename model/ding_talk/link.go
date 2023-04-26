@@ -1,4 +1,4 @@
-package model
+package ding_talk
 
 // LinkMessage link struct
 type LinkMessage struct {

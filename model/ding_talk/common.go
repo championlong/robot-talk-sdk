@@ -1,4 +1,4 @@
-package model
+package ding_talk
 
 // DingDingResponse 官方钉钉响应体
 type DingDingResponse struct {
