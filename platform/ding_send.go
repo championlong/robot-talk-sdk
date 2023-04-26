@@ -6,13 +6,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/championlong/dingtalk-sdk/model/ding_talk"
+	"github.com/championlong/robot-talk-sdk/model/ding_talk"
 	"net/url"
 	"strconv"
 	"time"
 
-	"github.com/championlong/dingtalk-sdk/config"
-	"github.com/championlong/dingtalk-sdk/utils"
+	"github.com/championlong/robot-talk-sdk/config"
+	"github.com/championlong/robot-talk-sdk/utils"
 )
 
 type SendMessage interface {
