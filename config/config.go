@@ -12,8 +12,6 @@ type PlatformConfig struct {
 
 // DingRobotsConfig 钉钉机器人配置
 type DingRobotsConfig struct {
-	// KeysWord 关键字
-	KeysWord string `mapstructure:"keys-word" json:"keys-word" yaml:"keys-word"`
 	// Encrypt 加签信息
 	Encrypt string `mapstructure:"encrypt" json:"encrypt" yaml:"encrypt"`
 	// AccessToken 请求token信息
